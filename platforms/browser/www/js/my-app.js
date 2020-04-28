@@ -29,7 +29,6 @@ var mainView = app.views.create('.view-main');
 $$(document).on('deviceready', function() {
     console.log("Device is ready!");
 
-    $$('.tocaBoton').on('click', fnTocaBoton);
 
 });
 
@@ -43,8 +42,32 @@ $$(document).on('page:init', function (e) {
 $$(document).on('page:init', '.page[data-name="about"]', function (e) {
     // Do something here when page with data-name="about" attribute loaded and initialized
     console.log(e);
-    alert('Hello');
+    
 })
+
+var email = "pepitaronderos@hotmail.com";
+var password = "12345678";
+firebase.auth().createUserWithEmailAndPassword(email, password)
+.catch(function(error)
+{
+// Handle Errors here.
+var errorCode = error.code;
+var errorMessage = error.message;
+if (errorCode == 'auth/weak-password') {
+alert('Clave muy débil.');
+} else {
+alert(errorMessage);
+}
+console.log(error);
+;
+});
+
+firebase.auth().signInWithEmailAndPassword(email, password)
+.catch(function(error) {
+  // Handle Errors here.
+  var errorCode = error.code;
+  var errorMessage = error.message;
+});
 
 
 
